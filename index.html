@@ -334,7 +334,11 @@
 
                     <form class="form-grid" name="nkwabiz-contact" method="POST" data-netlify="true">
                         <input type="hidden" name="form-name" value="nkwabiz-contact">
+                        <input type="hidden" name="bot-field">
 
+                        <div style="display:none;">
+                            <label>Don’t fill this out if you're human: <input name="bot-field"></label>
+                        </div>
                         <div class="form-group">
                             <label for="email" class="form-label">Business Email</label>
                             <input type="email" id="email" name="email" class="form-input" required
@@ -360,7 +364,7 @@
                         </p>
                     </form>
 
-                    <div class="success-message" style="display:none;">
+                    <div class="success-message" id="success-message" style="display:none;">
                         Thank you! We'll contact you within 24 hours to discuss how NkwaBiz can help your business.
                     </div>
                 </section>
@@ -377,7 +381,11 @@
     </div>
 
     <script>
-        // Vue.js removed for Netlify form compatibility
+        // Show success message if URL contains ?success=true
+        if (window.location.search.includes('success=true')) {
+            document.querySelector('.form-grid').style.display = 'none';
+            document.getElementById('success-message').style.display = 'block';
+        }
     </script>
 </body>
 
