@@ -332,43 +332,37 @@
                         <p>Share your details and we'll reach out to discuss pricing and implementation.</p>
                     </div>
 
-                    <div v-if="submitted" class="success-message">
-                        Thank you! We'll contact you within 24 hours to discuss how NkwaBiz can help your business.
-                    </div>
-
-                    <form v-if="!submitted" class="form-grid" name="nkwabiz-contact" method="POST" data-netlify="true"
-                        @submit.prevent="handleSubmit">
-
-                        <!-- Netlify form detection -->
+                    <form class="form-grid" name="nkwabiz-contact" method="POST" data-netlify="true">
                         <input type="hidden" name="form-name" value="nkwabiz-contact">
 
                         <div class="form-group">
                             <label for="email" class="form-label">Business Email</label>
-                            <input type="email" id="email" name="email" class="form-input" v-model="formData.email"
-                                required placeholder="your@business.com">
+                            <input type="email" id="email" name="email" class="form-input" required
+                                placeholder="your@business.com">
                         </div>
 
                         <div class="form-group">
                             <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" class="form-input" v-model="formData.phone"
-                                required placeholder="+233 XX XXX XXXX">
+                            <input type="tel" id="phone" name="phone" class="form-input" required
+                                placeholder="+233 XX XXX XXXX">
                         </div>
 
                         <div class="form-group">
                             <label for="location" class="form-label">Business Location</label>
-                            <input type="text" id="location" name="location" class="form-input"
-                                v-model="formData.location" required placeholder="City, Region">
+                            <input type="text" id="location" name="location" class="form-input" required
+                                placeholder="City, Region">
                         </div>
 
-                        <button type="submit" class="submit-btn" :disabled="submitting">
-                            <span v-if="submitting">Sending...</span>
-                            <span v-else>Request Information</span>
-                        </button>
+                        <button type="submit" class="submit-btn">Request Information</button>
 
                         <p class="form-note">
                             We'll contact you to discuss pricing, features, and how to get started.
                         </p>
                     </form>
+
+                    <div class="success-message" style="display:none;">
+                        Thank you! We'll contact you within 24 hours to discuss how NkwaBiz can help your business.
+                    </div>
                 </section>
             </div>
         </div>
@@ -383,49 +377,7 @@
     </div>
 
     <script>
-        const { createApp } = Vue;
-
-        createApp({
-            data() {
-                return {
-                    submitted: false,
-                    submitting: false,
-                    formData: {
-                        email: '',
-                        phone: '',
-                        location: ''
-                    }
-                }
-            },
-            methods: {
-                async handleSubmit(e) {
-                    this.submitting = true;
-
-                    // Encode form data for Netlify
-                    const formData = new URLSearchParams();
-                    formData.append('form-name', 'nkwabiz-contact');
-                    formData.append('email', this.formData.email);
-                    formData.append('phone', this.formData.phone);
-                    formData.append('location', this.formData.location);
-
-                    try {
-                        // Submit to Netlify
-                        await fetch('/', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            body: formData.toString()
-                        });
-
-                        // Show success message
-                        this.submitted = true;
-                    } catch (error) {
-                        alert('Sorry, there was an error. Please try again.');
-                    }
-
-                    this.submitting = false;
-                }
-            }
-        }).mount('#app');
+        // Vue.js removed for Netlify form compatibility
     </script>
 </body>
 
